@@ -1,0 +1,13 @@
+{
+  "type": "createembers:stamping",
+  "fluid": {
+    "amount": 144,
+    "fluidTag": "forge:molten_lead"
+  },
+  "result": {
+    "item": "createembers:lead_ingot"
+  },
+  "stamp": {
+    "item": "createembers:stamp_ingot"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "createembers:stamping",
+  "fluid": {
+    "amount": 144,
+    "fluidTag": "forge:molten_tin"
+  },
+  "result": {
+    "item": "createembers:tin_ingot"
+  },
+  "stamp": {
+    "item": "createembers:stamp_ingot"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "createembers:stamping",
+  "fluid": {
+    "amount": 144,
+    "fluidTag": "forge:molten_gold"
+  },
+  "result": {
+    "item": "minecraft:gold_ingot"
+  },
+  "stamp": {
+    "item": "createembers:stamp_ingot"
+  }
+}

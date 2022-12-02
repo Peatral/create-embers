@@ -1,0 +1,12 @@
+{
+  "type": "createembers:stamping",
+  "input": {
+    "item": "createembers:stamp_flat_raw"
+  },
+  "result": {
+    "item": "createembers:stamp_ingot_raw"
+  },
+  "stamp": {
+    "tag": "forge:ingots"
+  }
+}

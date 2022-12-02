@@ -1,0 +1,9 @@
+{
+  "parent": "forge:item/bucket",
+  "fluid": "createembers:molten_bronze",
+  "loader": "forge:fluid_container",
+  "textures": {
+    "base": "minecraft:item/bucket",
+    "fluid": "createembers:item/drip_bucket"
+  }
+}

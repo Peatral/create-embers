@@ -1,0 +1,12 @@
+{
+  "values": [
+    "createembers:aluminum_plate",
+    "createembers:bronze_plate",
+    "createembers:dawnstone_plate",
+    "createembers:electrum_plate",
+    "createembers:lead_plate",
+    "createembers:nickel_plate",
+    "createembers:silver_plate",
+    "createembers:tin_plate"
+  ]
+}

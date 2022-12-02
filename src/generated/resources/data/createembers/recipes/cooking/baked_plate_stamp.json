@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "cookingtime": 100,
+  "experience": 0.2,
+  "ingredient": {
+    "item": "createembers:stamp_plate_raw"
+  },
+  "result": "createembers:stamp_plate"
+}

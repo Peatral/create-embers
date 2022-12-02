@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "createembers:block/stamp_base"
+    }
+  }
+}

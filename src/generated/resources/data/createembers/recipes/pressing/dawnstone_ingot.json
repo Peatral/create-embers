@@ -1,0 +1,13 @@
+{
+  "type": "create:pressing",
+  "ingredients": [
+    {
+      "tag": "forge:ingots/dawnstone"
+    }
+  ],
+  "results": [
+    {
+      "item": "createembers:dawnstone_plate"
+    }
+  ]
+}
