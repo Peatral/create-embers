@@ -1,14 +1,12 @@
 package xyz.peatral.createembers.content.stamper;
 
-import com.simibubi.create.content.contraptions.goggles.IHaveGoggleInformation;
-import com.simibubi.create.content.contraptions.processing.BasinRecipe;
-import com.simibubi.create.content.contraptions.processing.BasinTileEntity;
+import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
+import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import com.simibubi.create.foundation.blockEntity.behaviour.simple.DeferralBehaviour;
 import com.simibubi.create.foundation.item.SmartInventory;
-import com.simibubi.create.foundation.tileEntity.SmartTileEntity;
-import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
-import com.simibubi.create.foundation.tileEntity.behaviour.simple.DeferralBehaviour;
+import com.simibubi.create.foundation.recipe.RecipeFinder;
 import com.simibubi.create.foundation.utility.Components;
-import com.simibubi.create.foundation.utility.recipe.RecipeFinder;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -26,9 +24,8 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import xyz.peatral.createembers.CreateEmbers;
 import xyz.peatral.createembers.Lang;
-import xyz.peatral.createembers.content.stamp_base.StampBaseTileEntity;
+import xyz.peatral.createembers.content.stamp_base.StampBaseBlockEntity;
 import xyz.peatral.createembers.crafting.StampingRecipe;
 
 import javax.annotation.Nonnull;
@@ -38,7 +35,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class StamperTileEntity extends SmartTileEntity implements IHaveGoggleInformation {
+public class StamperBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
     private static final Object stampingRecipesKey = new Object();
 
     public DeferralBehaviour stampBaseChecker;
@@ -52,7 +49,7 @@ public class StamperTileEntity extends SmartTileEntity implements IHaveGoggleInf
     public int runningTicks;
     public int prevRunningTicks;
 
-    public StamperTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public StamperBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         inventory = new StamperInventory(1, this);
         itemCapability = LazyOptional.of(() -> inventory);
@@ -63,7 +60,7 @@ public class StamperTileEntity extends SmartTileEntity implements IHaveGoggleInf
     }
 
     @Override
-    public void addBehaviours(List<TileEntityBehaviour> behaviours) {
+    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
         stampBaseChecker = new DeferralBehaviour(this, this::updateStampBase);
         behaviours.add(stampBaseChecker);
     }
@@ -93,12 +90,6 @@ public class StamperTileEntity extends SmartTileEntity implements IHaveGoggleInf
         compound.put("InputItems", inventory.serializeNBT());
         compound.putBoolean("Running", running);
         compound.putInt("Ticks", runningTicks);
-    }
-
-    @Override
-    public void setRemoved() {
-        itemCapability.invalidate();
-        super.setRemoved();
     }
 
     @Override
@@ -132,10 +123,10 @@ public class StamperTileEntity extends SmartTileEntity implements IHaveGoggleInf
         if (currentRecipe == null)
             return;
 
-        Optional<StampBaseTileEntity> optionalStampBase = getStampBase();
+        Optional<StampBaseBlockEntity> optionalStampBase = getStampBase();
         if (!optionalStampBase.isPresent())
             return;
-        StampBaseTileEntity stampBase = optionalStampBase.get();
+        StampBaseBlockEntity stampBase = optionalStampBase.get();
         if (!StampingRecipe.apply(stampBase, this, currentRecipe))
             return;
         //getProcessedRecipeTrigger().ifPresent(this::award);
@@ -167,14 +158,14 @@ public class StamperTileEntity extends SmartTileEntity implements IHaveGoggleInf
     protected <C extends Container> boolean matchStampBaseRecipe(Recipe<C> recipe) {
         if (recipe == null)
             return false;
-        Optional<StampBaseTileEntity> stampBase = getStampBase();
+        Optional<StampBaseBlockEntity> stampBase = getStampBase();
         if (!stampBase.isPresent())
             return false;
         return StampingRecipe.match(stampBase.get(), this, recipe);
     }
 
     protected List<Recipe<?>> getMatchingRecipes() {
-        if (getStampBase().map(StampBaseTileEntity::isEmpty)
+        if (getStampBase().map(StampBaseBlockEntity::isEmpty)
                 .orElse(true))
             return new ArrayList<>();
 
@@ -194,13 +185,13 @@ public class StamperTileEntity extends SmartTileEntity implements IHaveGoggleInf
         running = false;
     }
 
-    protected Optional<StampBaseTileEntity> getStampBase() {
+    protected Optional<StampBaseBlockEntity> getStampBase() {
         if (level == null)
             return Optional.empty();
         BlockEntity stampbaseTE = level.getBlockEntity(worldPosition.below(2));
-        if (!(stampbaseTE instanceof StampBaseTileEntity))
+        if (!(stampbaseTE instanceof StampBaseBlockEntity))
             return Optional.empty();
-        return Optional.of((StampBaseTileEntity) stampbaseTE);
+        return Optional.of((StampBaseBlockEntity) stampbaseTE);
     }
 
     public float getRenderedHeadOffset(float partialTicks) {
@@ -223,10 +214,10 @@ public class StamperTileEntity extends SmartTileEntity implements IHaveGoggleInf
         Component indent = Components.literal(IHaveGoggleInformation.spacing);
         Component indent2 = Components.literal(IHaveGoggleInformation.spacing + " ");
 
-        Optional<StampBaseTileEntity> stampBaseOptional = getStampBase();
+        Optional<StampBaseBlockEntity> stampBaseOptional = getStampBase();
         if (stampBaseOptional.isEmpty())
             return false;
-        StampBaseTileEntity stampBase = stampBaseOptional.get();
+        StampBaseBlockEntity stampBase = stampBaseOptional.get();
 
         tooltip.add(indent.plainCopy()
                 .append(Lang.translateDirect("gui.goggles.stamper")));

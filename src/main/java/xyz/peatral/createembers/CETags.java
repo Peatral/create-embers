@@ -1,6 +1,5 @@
 package xyz.peatral.createembers;
 
-import com.mojang.datafixers.TypeRewriteRule;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.foundation.utility.Lang;
 import net.minecraft.resources.ResourceLocation;
@@ -8,9 +7,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistry;
 
 import static xyz.peatral.createembers.CETags.NameSpace.FORGE;
 import static xyz.peatral.createembers.CETags.NameSpace.MOD;
@@ -38,8 +35,6 @@ public class CETags {
 
     public enum CEItemTags {
         CREATEEMBERS_INGOTS,
-        STAMPS,
-        CREATEEMBERS_STAMPS,
         NUGGETS(FORGE),
         PLATES(FORGE)
         ;
@@ -85,14 +80,6 @@ public class CETags {
 
         private static void init() {
         }
-    }
-
-    public static <T> TagKey<T> ceTag(IForgeRegistry<T> registry, String path) {
-        return AllTags.optionalTag(registry, CreateEmbers.asResource(path));
-    }
-
-    public static TagKey<Item> ceItemTag(String path) {
-        return ceTag(ForgeRegistries.ITEMS, path);
     }
 
     public static void init() {

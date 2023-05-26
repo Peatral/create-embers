@@ -1,19 +1,12 @@
 package xyz.peatral.createembers.content.stamp_base;
 
-import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
-import com.simibubi.create.content.contraptions.relays.belt.BeltHelper;
+import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
+import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 import com.simibubi.create.foundation.fluid.FluidRenderer;
-import com.simibubi.create.foundation.tileEntity.behaviour.fluid.SmartFluidTankBehaviour;
-import com.simibubi.create.foundation.tileEntity.renderer.SafeTileEntityRenderer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
-import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.fluids.FluidStack;
@@ -23,12 +16,12 @@ import xyz.peatral.createembers.util.RenderUtil;
 
 import java.util.Random;
 
-public class StampBaseRenderer extends SafeTileEntityRenderer<StampBaseTileEntity> {
+public class StampBaseRenderer extends SafeBlockEntityRenderer<StampBaseBlockEntity> {
     public StampBaseRenderer(BlockEntityRendererProvider.Context context) {
     }
 
     @Override
-    protected void renderSafe(StampBaseTileEntity stampBase, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
+    protected void renderSafe(StampBaseBlockEntity stampBase, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
         // Render item / fluid
 
         float fluidLevel = renderFluid(stampBase, partialTicks, ms, buffer, light, overlay);
@@ -47,7 +40,7 @@ public class StampBaseRenderer extends SafeTileEntityRenderer<StampBaseTileEntit
         ms.popPose();
     }
 
-    protected float renderFluid(StampBaseTileEntity stampBase, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+    protected float renderFluid(StampBaseBlockEntity stampBase, float partialTicks, PoseStack ms, MultiBufferSource buffer,
                                 int light, int overlay) {
 
         SmartFluidTankBehaviour fluids = stampBase.getBehaviour(SmartFluidTankBehaviour.TYPE);

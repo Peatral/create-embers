@@ -1,9 +1,8 @@
 package xyz.peatral.createembers.crafting;
 
 import com.google.gson.JsonObject;
-import com.simibubi.create.content.contraptions.processing.ProcessingOutput;
+import com.simibubi.create.content.processing.recipe.ProcessingOutput;
 import com.simibubi.create.foundation.fluid.FluidIngredient;
-import com.simibubi.create.foundation.item.ItemHelper;
 import com.simibubi.create.foundation.item.SmartInventory;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
@@ -19,10 +18,9 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
-import xyz.peatral.createembers.content.stamp_base.StampBaseTileEntity;
-import xyz.peatral.createembers.content.stamper.StamperTileEntity;
+import xyz.peatral.createembers.content.stamp_base.StampBaseBlockEntity;
+import xyz.peatral.createembers.content.stamper.StamperBlockEntity;
 
 public class StampingRecipe implements Recipe<SmartInventory> {
 
@@ -42,15 +40,15 @@ public class StampingRecipe implements Recipe<SmartInventory> {
         this.id = id;
     }
 
-    public static boolean match(StampBaseTileEntity stampBase, StamperTileEntity stampBaseOperatingTileEntity, Recipe<?> recipe) {
+    public static boolean match(StampBaseBlockEntity stampBase, StamperBlockEntity stampBaseOperatingTileEntity, Recipe<?> recipe) {
         return apply(stampBase, stampBaseOperatingTileEntity, recipe, true);
     }
 
-    public static boolean apply(StampBaseTileEntity stampBase, StamperTileEntity stampBaseOperatingTileEntity, Recipe<?> recipe) {
+    public static boolean apply(StampBaseBlockEntity stampBase, StamperBlockEntity stampBaseOperatingTileEntity, Recipe<?> recipe) {
         return apply(stampBase, stampBaseOperatingTileEntity, recipe, false);
     }
 
-    public static boolean apply(StampBaseTileEntity stampBase, StamperTileEntity stampBaseOperatingTileEntity, Recipe<?> recipe, boolean test) {
+    public static boolean apply(StampBaseBlockEntity stampBase, StamperBlockEntity stampBaseOperatingTileEntity, Recipe<?> recipe, boolean test) {
         if (!(recipe instanceof StampingRecipe)) {
             return false;
         }
@@ -167,8 +165,7 @@ public class StampingRecipe implements Recipe<SmartInventory> {
             if (recipe.input != Ingredient.EMPTY)
                 json.add("input", recipe.input.toJson());
             json.add("stamp", recipe.stamp.toJson());
-            if (recipe.fluid != FluidIngredient.EMPTY)
-                json.add("fluid", recipe.fluid.serialize());
+            json.add("fluid", recipe.fluid.serialize());
             json.add("result", recipe.output.serialize());
         }
 
@@ -177,7 +174,7 @@ public class StampingRecipe implements Recipe<SmartInventory> {
             return new StampingRecipe(
                     json.has("input") ? Ingredient.fromJson(json.get("input")) : Ingredient.EMPTY,
                     Ingredient.fromJson(json.get("stamp")),
-                    json.has("fluid") ? FluidIngredient.deserialize(json.get("fluid")) : FluidIngredient.EMPTY,
+                    FluidIngredient.deserialize(json.get("fluid")),
                     ProcessingOutput.deserialize(json.get("result")),
                     id);
         }

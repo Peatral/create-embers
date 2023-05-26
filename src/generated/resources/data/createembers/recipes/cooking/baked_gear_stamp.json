@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:blasting",
-  "cookingtime": 100,
-  "experience": 0.2,
-  "ingredient": {
-    "item": "createembers:stamp_gear_raw"
-  },
-  "result": "createembers:stamp_gear"
-}

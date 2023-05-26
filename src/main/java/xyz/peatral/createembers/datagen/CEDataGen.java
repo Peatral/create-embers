@@ -5,8 +5,6 @@ import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import xyz.peatral.createembers.CreateEmbers;
-import xyz.peatral.createembers.datagen.recipe.CookingRecipeGen;
-import xyz.peatral.createembers.datagen.recipe.MixingRecipeGen;
 import xyz.peatral.createembers.datagen.recipe.PressingRecipeGen;
 import xyz.peatral.createembers.datagen.recipe.StampingRecipeGen;
 import xyz.peatral.createembers.ponder.CEPonderIndex;
@@ -22,8 +20,6 @@ public class CEDataGen {
         if (event.includeServer()) {
             gen.addProvider(true, new StampingRecipeGen(gen));
             gen.addProvider(true, new PressingRecipeGen(gen));
-            gen.addProvider(true, new MixingRecipeGen(gen));
-            gen.addProvider(true, new CookingRecipeGen(gen));
         }
         if (event.includeClient()) {
             CELangGen.prepare();

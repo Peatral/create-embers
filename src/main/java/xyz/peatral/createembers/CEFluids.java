@@ -8,10 +8,8 @@ import com.tterrag.registrate.util.entry.FluidEntry;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.level.BlockAndTintGetter;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.loaders.DynamicFluidContainerModelBuilder;
@@ -20,8 +18,6 @@ import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class CEFluids {
-
-    private static final CreateRegistrate REGISTRATE = CreateEmbers.registrate();
 
     public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_IRON = simpleFluid("molten_iron", "Molten Iron");
     public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_GOLD = simpleFluid("molten_gold", "Molten Gold");
@@ -50,6 +46,7 @@ public class CEFluids {
                 .tag(AllTags.forgeFluidTag(id))
                 .source(ForgeFlowingFluid.Source::new) // TODO: remove when Registrate fixes FluidBuilder
                 .bucket()
+                .defaultModel()
                 .tag(AllTags.forgeItemTag("buckets/" + id))
                 .transform(bucketModel(id))
                 .register();
@@ -57,7 +54,7 @@ public class CEFluids {
 
     public static FluidBuilder<ForgeFlowingFluid.Flowing, CreateRegistrate> standardFluid(String name,
                                                                                    FluidBuilder.FluidTypeFactory typeFactory) {
-        return REGISTRATE.fluid(name, CreateEmbers.asResource("fluid/" + name + "_still"), CreateEmbers.asResource("fluid/" + name + "_flow"),
+        return CreateEmbers.registrate().fluid(name, CreateEmbers.asResource("fluid/" + name + "_still"), CreateEmbers.asResource("fluid/" + name + "_flow"),
                 typeFactory);
     }
 

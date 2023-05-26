@@ -3,7 +3,7 @@ package xyz.peatral.createembers.util;
 import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector3f;
-import com.simibubi.create.content.contraptions.relays.belt.BeltHelper;
+import com.simibubi.create.content.kinetics.belt.BeltHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;

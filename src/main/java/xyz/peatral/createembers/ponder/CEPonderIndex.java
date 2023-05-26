@@ -1,6 +1,5 @@
 package xyz.peatral.createembers.ponder;
 
-import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.ponder.PonderLocalization;
 import com.simibubi.create.foundation.ponder.PonderRegistrationHelper;
 import com.simibubi.create.foundation.ponder.PonderRegistry;
@@ -9,7 +8,6 @@ import xyz.peatral.createembers.CreateEmbers;
 
 public class CEPonderIndex {
     private static final PonderRegistrationHelper HELPER = new PonderRegistrationHelper(CreateEmbers.ID);
-    private static final CreateRegistrate REGISTRATE = CreateEmbers.registrate();
 
     public static void register() {
         HELPER.forComponents(CEBlocks.FLUID_VESSEL)
@@ -22,6 +20,6 @@ public class CEPonderIndex {
     }
 
     public static void registerLang() {
-        PonderLocalization.provideRegistrateLang(REGISTRATE);
+        PonderLocalization.provideRegistrateLang(CreateEmbers.registrate());
     }
 }

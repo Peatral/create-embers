@@ -161,7 +161,7 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.19.2-43.1.7'
+    minecraft 'net.minecraftforge:forge:1.19.2-43.2.11'
 
     implementation fg.deobf("com.simibubi.create:create-${create_minecraft_version}:${create_version}:slim") { transitive = false }
     implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}")
@@ -177,8 +177,8 @@ dependencies {
     // REI API for Forge (ForgeGradle)
     implementation fg.deobf("me.shedaniel.cloth:cloth-config-forge:$cloth_config_version")
     implementation fg.deobf("dev.architectury:architectury-forge:$architectury_version")
-    //compileOnly fg.deobf("me.shedaniel:RoughlyEnoughItems-api-forge:$rei_version")
-    //compileOnly fg.deobf("me.shedaniel:RoughlyEnoughItems-default-plugin-forge:$rei_version")
+    compileOnly fg.deobf("me.shedaniel:RoughlyEnoughItems-api-forge:$rei_version")
+    compileOnly fg.deobf("me.shedaniel:RoughlyEnoughItems-default-plugin-forge:$rei_version")
 
 
     // REI Runtime for Forge (ForgeGradle)

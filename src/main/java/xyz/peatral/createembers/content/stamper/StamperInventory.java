@@ -3,11 +3,11 @@ package xyz.peatral.createembers.content.stamper;
 import com.simibubi.create.foundation.item.SmartInventory;
 
 public class StamperInventory extends SmartInventory {
-    private StamperTileEntity te;
+    private StamperBlockEntity be;
 
-    public StamperInventory(int slots, StamperTileEntity te) {
-        super(slots, te);
-        this.te = te;
+    public StamperInventory(int slots, StamperBlockEntity be) {
+        super(slots, be);
+        this.be = be;
         withMaxStackSize(1);
     }
 }

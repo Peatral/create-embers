@@ -1,28 +1,28 @@
 package xyz.peatral.createembers.content.fluid_vessel;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
+import com.simibubi.create.foundation.blockEntity.renderer.SafeBlockEntityRenderer;
 import com.simibubi.create.foundation.fluid.FluidRenderer;
-import com.simibubi.create.foundation.tileEntity.behaviour.fluid.SmartFluidTankBehaviour;
-import com.simibubi.create.foundation.tileEntity.renderer.SafeTileEntityRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.util.Mth;
 import net.minecraftforge.fluids.FluidStack;
 
-public class FluidVesselRenderer extends SafeTileEntityRenderer<FluidVesselTileEntity> {
+public class FluidVesselRenderer extends SafeBlockEntityRenderer<FluidVesselBlockEntity> {
     public FluidVesselRenderer(BlockEntityRendererProvider.Context context) {
     }
 
     @Override
-    protected void renderSafe(FluidVesselTileEntity fluidVessel, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
+    protected void renderSafe(FluidVesselBlockEntity fluidVessel, float partialTicks, PoseStack ms, MultiBufferSource buffer, int light, int overlay) {
         // Render fluid
 
         float fluidLevel = renderFluid(fluidVessel, partialTicks, ms, buffer, light, overlay);
     }
 
-    protected float renderFluid(FluidVesselTileEntity fluidVessel, float partialTicks, PoseStack ms, MultiBufferSource buffer,
+    protected float renderFluid(FluidVesselBlockEntity fluidVessel, float partialTicks, PoseStack ms, MultiBufferSource buffer,
                                 int light, int overlay) {
-        SmartFluidTankBehaviour fluids = fluidVessel.getBehaviour(SmartFluidTankBehaviour.TYPE);
+        SmartFluidTankBehaviour fluids = fluidVessel.getTankBehaviour();
 
         if (fluids == null)
             return 0;

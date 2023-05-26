@@ -1,30 +1,22 @@
 package xyz.peatral.createembers;
 
 import com.simibubi.create.AllTags;
-import com.simibubi.create.content.AllSections;
-import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
 public class CEItems {
-    private static final CreateRegistrate REGISTRATE = CreateEmbers.registrate()
-            .creativeModeTab(() -> CreateEmbers.BASE_CREATIVE_TAB);
-
     static {
-        REGISTRATE.startSection(AllSections.UNASSIGNED);
+        CreateEmbers.registrate()
+                .creativeModeTab(() -> CreateEmbers.BASE_CREATIVE_TAB);
     }
 
     // ------------- Stamps -------------
 
-    public static final ItemEntry<Item> STAMP_INGOT_RAW = ingredient("stamp_ingot_raw", "Raw Bar Stamp");
-    public static final ItemEntry<Item> STAMP_FLAT_RAW = ingredient("stamp_flat_raw", "Raw Flat Stamp");
-    public static final ItemEntry<Item> STAMP_PLATE_RAW = ingredient("stamp_plate_raw", "Raw Plate Stamp");
-    public static final ItemEntry<Item> STAMP_GEAR_RAW = ingredient("stamp_gear_raw", "Raw Gear Stamp");
-    public static final ItemEntry<Item> STAMP_INGOT = taggedIngredient("stamp_ingot", "Bar Stamp", CETags.ceItemTag("stamps/ingots"), CETags.CEItemTags.CREATEEMBERS_STAMPS.tag);
-    public static final ItemEntry<Item> STAMP_FLAT = taggedIngredient("stamp_flat", "Flat Stamp", CETags.ceItemTag("stamps/flat"), CETags.CEItemTags.CREATEEMBERS_STAMPS.tag);
-    public static final ItemEntry<Item> STAMP_PLATE = taggedIngredient("stamp_plate", "Plate Stamp", CETags.ceItemTag("stamps/plates"), CETags.CEItemTags.CREATEEMBERS_STAMPS.tag);
-    public static final ItemEntry<Item> STAMP_GEAR = taggedIngredient("stamp_gear", "Gear Stamp", CETags.ceItemTag("stamps/gears"), CETags.CEItemTags.CREATEEMBERS_STAMPS.tag);
+    public static final ItemEntry<Item> STAMP_INGOT = ingredient("stamp_ingot", "Bar Stamp");
+    public static final ItemEntry<Item> STAMP_FLAT = ingredient("stamp_flat", "Flat Stamp");
+    public static final ItemEntry<Item> STAMP_PLATE = ingredient("stamp_plate", "Plate Stamp");
+    public static final ItemEntry<Item> STAMP_GEAR = ingredient("stamp_gear", "Gear Stamp");
 
     // ------------- Ingots -------------
 
@@ -60,25 +52,18 @@ public class CEItems {
     public static final ItemEntry<Item> TIN_NUGGET = taggedIngredient("tin_nugget", AllTags.forgeItemTag("nuggets/tin"), CETags.CEItemTags.NUGGETS.tag);
 
     private static ItemEntry<Item> ingredient(String name) {
-        return REGISTRATE.item(name, Item::new)
+        return CreateEmbers.registrate().item(name, Item::new)
                 .register();
     }
 
     private static ItemEntry<Item> ingredient(String id, String name) {
-        return REGISTRATE.item(id, Item::new)
+        return CreateEmbers.registrate().item(id, Item::new)
                 .lang(name)
-                .register();
-    }
-
-    private static ItemEntry<Item> taggedIngredient(String id, String name, TagKey<Item>... tags) {
-        return REGISTRATE.item(id, Item::new)
-                .lang(name)
-                .tag(tags)
                 .register();
     }
 
     private static ItemEntry<Item> taggedIngredient(String name, TagKey<Item>... tags) {
-        return REGISTRATE.item(name, Item::new)
+        return CreateEmbers.registrate().item(name, Item::new)
                 .tag(tags)
                 .register();
     }

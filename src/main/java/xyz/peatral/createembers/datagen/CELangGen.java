@@ -1,10 +1,8 @@
 package xyz.peatral.createembers.datagen;
 
-import com.simibubi.create.foundation.data.CreateRegistrate;
 import xyz.peatral.createembers.CreateEmbers;
 
 public class CELangGen {
-    public static final CreateRegistrate REGISTRATE = CreateEmbers.registrate();
 
     public static void prepare() {
         gogglesTooltip("stamper", "Stamping Data:");
@@ -17,18 +15,13 @@ public class CELangGen {
         gogglesTooltip("stamper.runningticks", "Running Ticks: %d");
 
         gui("none", "None");
-
-        jei("recipe.stamping", "Stamping");
     }
 
     public static void gogglesTooltip(String path, String enUs) {
-        REGISTRATE.addRawLang(CreateEmbers.ID + ".gui.goggles." + path, enUs);
+        CreateEmbers.registrate().addRawLang(CreateEmbers.ID + ".gui.goggles." + path, enUs);
     }
 
     public static void gui(String path, String enUs) {
-        REGISTRATE.addRawLang(CreateEmbers.ID + ".gui." + path, enUs);
-    }
-    public static void jei(String path, String enUs) {
-        REGISTRATE.addRawLang(CreateEmbers.ID + ".jei." + path, enUs);
+        CreateEmbers.registrate().addRawLang(CreateEmbers.ID + ".gui." + path, enUs);
     }
 }

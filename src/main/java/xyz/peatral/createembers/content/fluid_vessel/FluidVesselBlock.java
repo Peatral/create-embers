@@ -1,8 +1,8 @@
 package xyz.peatral.createembers.content.fluid_vessel;
 
-import com.simibubi.create.content.contraptions.fluids.actors.GenericItemFilling;
-import com.simibubi.create.content.contraptions.processing.EmptyingByBasin;
-import com.simibubi.create.foundation.block.ITE;
+import com.simibubi.create.content.fluids.transfer.GenericItemEmptying;
+import com.simibubi.create.content.fluids.transfer.GenericItemFilling;
+import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.fluid.FluidHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -18,21 +18,21 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
-import xyz.peatral.createembers.CETileEntities;
+import xyz.peatral.createembers.CEBlockEntityTypes;
 
-public class FluidVesselBlock extends Block implements ITE<FluidVesselTileEntity> {
+public class FluidVesselBlock extends Block implements IBE<FluidVesselBlockEntity> {
     public FluidVesselBlock(Properties properties) {
         super(properties);
     }
 
     @Override
-    public Class<FluidVesselTileEntity> getTileEntityClass() {
-        return FluidVesselTileEntity.class;
+    public Class<FluidVesselBlockEntity> getBlockEntityClass() {
+        return FluidVesselBlockEntity.class;
     }
 
     @Override
-    public BlockEntityType<? extends FluidVesselTileEntity> getTileEntityType() {
-        return CETileEntities.FLUID_VESSEL.get();
+    public BlockEntityType<? extends FluidVesselBlockEntity> getBlockEntityType() {
+        return CEBlockEntityTypes.FLUID_VESSEL.get();
     }
 
     @Override
@@ -40,19 +40,19 @@ public class FluidVesselBlock extends Block implements ITE<FluidVesselTileEntity
                                  BlockHitResult hit) {
         ItemStack heldItem = player.getItemInHand(handIn);
 
-        return onTileEntityUse(worldIn, pos, te -> {
+        return onBlockEntityUse(worldIn, pos, be -> {
             if (!heldItem.isEmpty()) {
-                if (FluidHelper.tryEmptyItemIntoTE(worldIn, player, handIn, heldItem, te))
+                if (FluidHelper.tryEmptyItemIntoBE(worldIn, player, handIn, heldItem, be))
                     return InteractionResult.SUCCESS;
-                if (FluidHelper.tryFillItemFromTE(worldIn, player, handIn, heldItem, te))
+                if (FluidHelper.tryFillItemFromBE(worldIn, player, handIn, heldItem, be))
                     return InteractionResult.SUCCESS;
 
-                if (EmptyingByBasin.canItemBeEmptied(worldIn, heldItem)
+                if (GenericItemEmptying.canItemBeEmptied(worldIn, heldItem)
                         || GenericItemFilling.canItemBeFilled(worldIn, heldItem))
                     return InteractionResult.SUCCESS;
                 if (heldItem.getItem()
                         .equals(Items.SPONGE)
-                        && !te.getCapability(ForgeCapabilities.FLUID_HANDLER)
+                        && !be.getCapability(ForgeCapabilities.FLUID_HANDLER)
                         .map(iFluidHandler -> iFluidHandler.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE))
                         .orElse(FluidStack.EMPTY)
                         .isEmpty()) {

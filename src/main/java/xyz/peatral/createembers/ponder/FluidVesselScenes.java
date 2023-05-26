@@ -1,6 +1,6 @@
 package xyz.peatral.createembers.ponder;
 
-import com.simibubi.create.content.contraptions.fluids.tank.FluidTankTileEntity;
+import com.simibubi.create.content.fluids.tank.FluidTankBlockEntity;
 import com.simibubi.create.foundation.ponder.SceneBuilder;
 import com.simibubi.create.foundation.ponder.SceneBuildingUtil;
 import com.simibubi.create.foundation.ponder.Selection;
@@ -13,7 +13,7 @@ import net.minecraft.world.item.Items;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import xyz.peatral.createembers.CEFluids;
-import xyz.peatral.createembers.content.fluid_vessel.FluidVesselTileEntity;
+import xyz.peatral.createembers.content.fluid_vessel.FluidVesselBlockEntity;
 
 public class FluidVesselScenes {
     public static void fill_and_empty(SceneBuilder scene, SceneBuildingUtil util) {
@@ -32,7 +32,7 @@ public class FluidVesselScenes {
 
         scene.world.showSection(tank, Direction.DOWN);
         FluidStack content = new FluidStack(CEFluids.MOLTEN_GOLD.get(), 16000);
-        scene.world.modifyTileEntity(util.grid.at(4, 1, 1), FluidTankTileEntity.class, te -> te.getTankInventory()
+        scene.world.modifyBlockEntity(util.grid.at(4, 1, 1), FluidTankBlockEntity.class, be -> be.getTankInventory()
                 .fill(content, IFluidHandler.FluidAction.EXECUTE));
         scene.idle(5);
         scene.world.showSection(vessel, Direction.DOWN);
@@ -95,8 +95,8 @@ public class FluidVesselScenes {
         scene.overlay.showControls(new InputWindowElement(util.vector.centerOf(0, 1, 3), Pointing.RIGHT).rightClick()
                 .withItem(new ItemStack(Items.BUCKET)), 20);
         scene.idle(15);
-        scene.world.modifyTileEntity(util.grid.at(0, 1, 3), FluidVesselTileEntity.class, te -> {
-            IFluidHandler handler = te.getTankBehaviour().getCapability().orElse(null);
+        scene.world.modifyBlockEntity(util.grid.at(0, 1, 3), FluidVesselBlockEntity.class, be -> {
+            IFluidHandler handler = be.getTankBehaviour().getCapability().orElse(null);
             if (handler == null)
                 return;
             handler.drain(16000, IFluidHandler.FluidAction.EXECUTE);

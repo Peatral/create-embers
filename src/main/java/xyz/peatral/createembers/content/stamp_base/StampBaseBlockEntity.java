@@ -1,11 +1,10 @@
 package xyz.peatral.createembers.content.stamp_base;
 
-import com.simibubi.create.content.contraptions.goggles.IHaveGoggleInformation;
-import com.simibubi.create.content.contraptions.processing.BasinOperatingTileEntity;
+import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
+import com.simibubi.create.foundation.blockEntity.SmartBlockEntity;
+import com.simibubi.create.foundation.blockEntity.behaviour.BlockEntityBehaviour;
+import com.simibubi.create.foundation.blockEntity.behaviour.fluid.SmartFluidTankBehaviour;
 import com.simibubi.create.foundation.fluid.CombinedTankWrapper;
-import com.simibubi.create.foundation.tileEntity.SmartTileEntity;
-import com.simibubi.create.foundation.tileEntity.TileEntityBehaviour;
-import com.simibubi.create.foundation.tileEntity.behaviour.fluid.SmartFluidTankBehaviour;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -18,14 +17,14 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import xyz.peatral.createembers.content.stamper.StamperTileEntity;
+import xyz.peatral.createembers.content.stamper.StamperBlockEntity;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
-public class StampBaseTileEntity extends SmartTileEntity implements IHaveGoggleInformation {
+public class StampBaseBlockEntity extends SmartBlockEntity implements IHaveGoggleInformation {
 
     public StampBaseInventory inputInventory;
     public SmartFluidTankBehaviour tank;
@@ -35,7 +34,7 @@ public class StampBaseTileEntity extends SmartTileEntity implements IHaveGoggleI
 
     int recipeBackupCheck;
 
-    public StampBaseTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+    public StampBaseBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
 
         inputInventory = new StampBaseInventory(1, this);
@@ -46,7 +45,7 @@ public class StampBaseTileEntity extends SmartTileEntity implements IHaveGoggleI
     }
 
     @Override
-    public void addBehaviours(List<TileEntityBehaviour> behaviours) {
+    public void addBehaviours(List<BlockEntityBehaviour> behaviours) {
         tank = SmartFluidTankBehaviour.single(this, 1000)
                 .whenFluidUpdates(() -> contentsChanged = true);
         behaviours.add(tank);
@@ -69,20 +68,7 @@ public class StampBaseTileEntity extends SmartTileEntity implements IHaveGoggleI
     }
 
     public void onEmptied() {
-        getOperator().ifPresent(te -> te.stampBaseRemoved = true);
-    }
-
-    @Override
-    public void setRemoved() {
-        itemCapability.invalidate();
-        fluidCapability.invalidate();
-        super.setRemoved();
-    }
-
-    @Override
-    protected void setRemovedNotDueToChunkUnload() {
-        onEmptied();
-        super.setRemovedNotDueToChunkUnload();
+        getOperator().ifPresent(be -> be.stampBaseRemoved = true);
     }
 
     @Nonnull
@@ -129,15 +115,15 @@ public class StampBaseTileEntity extends SmartTileEntity implements IHaveGoggleI
             return;
 
         contentsChanged = false;
-        getOperator().ifPresent(te -> te.stampBaseChecker.scheduleUpdate());
+        getOperator().ifPresent(be -> be.stampBaseChecker.scheduleUpdate());
     }
 
-    private Optional<StamperTileEntity> getOperator() {
+    private Optional<StamperBlockEntity> getOperator() {
         if (level == null)
             return Optional.empty();
-        BlockEntity te = level.getBlockEntity(worldPosition.above(2));
-        if (te instanceof StamperTileEntity)
-            return Optional.of((StamperTileEntity) te);
+        BlockEntity be = level.getBlockEntity(worldPosition.above(2));
+        if (be instanceof StamperBlockEntity)
+            return Optional.of((StamperBlockEntity) be);
         return Optional.empty();
     }
 

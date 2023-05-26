@@ -2,7 +2,10 @@ package xyz.peatral.createembers;
 
 import com.mojang.logging.LogUtils;
 import com.simibubi.create.foundation.data.CreateRegistrate;
-import com.tterrag.registrate.util.nullness.NonNullSupplier;
+import com.simibubi.create.foundation.item.ItemDescription;
+import com.simibubi.create.foundation.item.KineticStats;
+import com.simibubi.create.foundation.item.TooltipHelper;
+import com.simibubi.create.foundation.item.TooltipModifier;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -29,24 +32,27 @@ public class CreateEmbers {
 
     public static final CreativeModeTab BASE_CREATIVE_TAB = new CreateEmbersItemGroup();
 
-    private static final NonNullSupplier<CreateRegistrate> REGISTRATE = CreateRegistrate.lazy(ID);
-
-    public CreateEmbers() {
-        onCtor();
+    private static final CreateRegistrate REGISTRATE = CreateRegistrate.create(ID);
+    static {
+        REGISTRATE.setTooltipModifierFactory(item -> new ItemDescription.Modifier(item, TooltipHelper.Palette.STANDARD_CREATE)
+                .andThen(TooltipModifier.mapNull(KineticStats.create(item))));
     }
 
-    public static void onCtor() {
+
+    public CreateEmbers() {
         ModLoadingContext modLoadingContext = ModLoadingContext.get();
 
         IEventBus modEventBus = FMLJavaModLoadingContext.get()
                 .getModEventBus();
         IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
 
+        REGISTRATE.registerEventListeners(modEventBus);
+
         CETags.init();
         CEBlocks.register();
         CEItems.register();
         CEFluids.register();
-        CETileEntities.register();
+        CEBlockEntityTypes.register();
         CERecipes.register(modEventBus);
 
         modEventBus.addListener(CreateEmbers::init);
@@ -67,7 +73,7 @@ public class CreateEmbers {
     }
 
     public static CreateRegistrate registrate() {
-        return REGISTRATE.get();
+        return REGISTRATE;
     }
 
     public static ResourceLocation asResource(String path) {

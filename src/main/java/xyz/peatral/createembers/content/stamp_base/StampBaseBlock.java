@@ -1,8 +1,8 @@
 package xyz.peatral.createembers.content.stamp_base;
 
-import com.simibubi.create.content.contraptions.fluids.actors.GenericItemFilling;
-import com.simibubi.create.content.contraptions.processing.EmptyingByBasin;
-import com.simibubi.create.foundation.block.ITE;
+import com.simibubi.create.content.fluids.transfer.GenericItemEmptying;
+import com.simibubi.create.content.fluids.transfer.GenericItemFilling;
+import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.fluid.FluidHelper;
 import com.simibubi.create.foundation.item.ItemHelper;
 import net.minecraft.core.BlockPos;
@@ -28,10 +28,10 @@ import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
+import xyz.peatral.createembers.CEBlockEntityTypes;
 import xyz.peatral.createembers.CEBlocks;
-import xyz.peatral.createembers.CETileEntities;
 
-public class StampBaseBlock extends Block implements ITE<StampBaseTileEntity> {
+public class StampBaseBlock extends Block implements IBE<StampBaseBlockEntity> {
 
     public StampBaseBlock(Properties properties) {
         super(properties);
@@ -39,13 +39,13 @@ public class StampBaseBlock extends Block implements ITE<StampBaseTileEntity> {
 
 
     @Override
-    public Class<StampBaseTileEntity> getTileEntityClass() {
-        return StampBaseTileEntity.class;
+    public Class<StampBaseBlockEntity> getBlockEntityClass() {
+        return StampBaseBlockEntity.class;
     }
 
     @Override
-    public BlockEntityType<? extends StampBaseTileEntity> getTileEntityType() {
-        return CETileEntities.STAMP_BASE.get();
+    public BlockEntityType<? extends StampBaseBlockEntity> getBlockEntityType() {
+        return CEBlockEntityTypes.STAMP_BASE.get();
     }
 
     @Override
@@ -53,19 +53,19 @@ public class StampBaseBlock extends Block implements ITE<StampBaseTileEntity> {
                                  BlockHitResult hit) {
         ItemStack heldItem = player.getItemInHand(handIn);
 
-        return onTileEntityUse(worldIn, pos, te -> {
+        return onBlockEntityUse(worldIn, pos, be -> {
             if (!heldItem.isEmpty()) {
-                if (FluidHelper.tryEmptyItemIntoTE(worldIn, player, handIn, heldItem, te))
+                if (FluidHelper.tryEmptyItemIntoBE(worldIn, player, handIn, heldItem, be))
                     return InteractionResult.SUCCESS;
-                if (FluidHelper.tryFillItemFromTE(worldIn, player, handIn, heldItem, te))
+                if (FluidHelper.tryFillItemFromBE(worldIn, player, handIn, heldItem, be))
                     return InteractionResult.SUCCESS;
 
-                if (EmptyingByBasin.canItemBeEmptied(worldIn, heldItem)
+                if (GenericItemEmptying.canItemBeEmptied(worldIn, heldItem)
                         || GenericItemFilling.canItemBeFilled(worldIn, heldItem))
                     return InteractionResult.SUCCESS;
                 if (heldItem.getItem()
                         .equals(Items.SPONGE)
-                        && !te.getCapability(ForgeCapabilities.FLUID_HANDLER)
+                        && !be.getCapability(ForgeCapabilities.FLUID_HANDLER)
                         .map(iFluidHandler -> iFluidHandler.drain(Integer.MAX_VALUE, IFluidHandler.FluidAction.EXECUTE))
                         .orElse(FluidStack.EMPTY)
                         .isEmpty()) {
@@ -74,7 +74,7 @@ public class StampBaseBlock extends Block implements ITE<StampBaseTileEntity> {
                 return InteractionResult.PASS;
             }
 
-            IItemHandlerModifiable inv = te.itemCapability.orElse(new ItemStackHandler(1));
+            IItemHandlerModifiable inv = be.itemCapability.orElse(new ItemStackHandler(1));
             boolean success = false;
             for (int slot = 0; slot < inv.getSlots(); slot++) {
                 ItemStack stackInSlot = inv.getStackInSlot(slot);
@@ -88,7 +88,7 @@ public class StampBaseBlock extends Block implements ITE<StampBaseTileEntity> {
             if (success)
                 worldIn.playSound(null, pos, SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, .2f,
                         1f + RandomSource.create().nextFloat());
-            te.onEmptied();
+            be.onEmptied();
             return InteractionResult.SUCCESS;
         });
     }
@@ -103,13 +103,13 @@ public class StampBaseBlock extends Block implements ITE<StampBaseTileEntity> {
         if (!entityIn.isAlive())
             return;
         ItemEntity itemEntity = (ItemEntity) entityIn;
-        withTileEntityDo(worldIn, entityIn.blockPosition().below(), te -> {
+        withBlockEntityDo(worldIn, entityIn.blockPosition().below(), be -> {
 
             // Tossed items bypass the quarter-stack limit
-            te.inputInventory.withMaxStackSize(64);
-            ItemStack insertItem = ItemHandlerHelper.insertItem(te.inputInventory, itemEntity.getItem()
+            be.inputInventory.withMaxStackSize(64);
+            ItemStack insertItem = ItemHandlerHelper.insertItem(be.inputInventory, itemEntity.getItem()
                     .copy(), false);
-            te.inputInventory.withMaxStackSize(16);
+            be.inputInventory.withMaxStackSize(16);
 
             if (insertItem.isEmpty()) {
                 itemEntity.discard();
@@ -124,8 +124,8 @@ public class StampBaseBlock extends Block implements ITE<StampBaseTileEntity> {
     public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         if (!state.hasBlockEntity() || state.getBlock() == newState.getBlock())
             return;
-        withTileEntityDo(worldIn, pos, te -> {
-            ItemHelper.dropContents(worldIn, pos, te.inputInventory);
+        withBlockEntityDo(worldIn, pos, be -> {
+            ItemHelper.dropContents(worldIn, pos, be.inputInventory);
         });
         worldIn.removeBlockEntity(pos);
     }

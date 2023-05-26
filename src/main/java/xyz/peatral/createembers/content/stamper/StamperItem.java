@@ -1,6 +1,6 @@
 package xyz.peatral.createembers.content.stamper;
 
-import com.simibubi.create.content.contraptions.components.AssemblyOperatorBlockItem;
+import com.simibubi.create.content.processing.AssemblyOperatorBlockItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import xyz.peatral.createembers.CEBlocks;
