@@ -10,10 +10,10 @@ import xyz.peatral.createembers.CreateEmbers;
 
 public class CETagGen {
     private static void genItemTags(RegistrateTagsProvider<Item> prov) {
-        prov.tag(ItemTags.BEACON_PAYMENT_ITEMS)
+        prov.addTag(ItemTags.BEACON_PAYMENT_ITEMS)
                 .addTag(CETags.CEItemTags.CREATEEMBERS_INGOTS.tag);
 
-        prov.tag(Tags.Items.INGOTS)
+        prov.addTag(Tags.Items.INGOTS)
                 .addTag(CETags.CEItemTags.CREATEEMBERS_INGOTS.tag);
     }
 

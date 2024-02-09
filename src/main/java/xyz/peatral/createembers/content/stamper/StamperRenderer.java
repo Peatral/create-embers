@@ -46,7 +46,7 @@ public class StamperRenderer extends SafeBlockEntityRenderer<StamperBlockEntity>
         IItemHandlerModifiable inv = be.itemCapability.orElse(new ItemStackHandler());
         ItemStack stack = inv.getStackInSlot(0);
         if (!stack.isEmpty()) {
-            RenderUtil.renderItem(ms, buffer, light, overlay, stack, 0, new Random(1), new Vec3(0, 0, 0));
+            RenderUtil.renderItem(be.getLevel(), ms, buffer, light, overlay, stack, 0, new Random(1), new Vec3(0, 0, 0));
         }
         ms.popPose();
     }

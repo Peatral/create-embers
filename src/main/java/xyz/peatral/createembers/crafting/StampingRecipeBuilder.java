@@ -25,7 +25,7 @@ public class StampingRecipeBuilder implements RecipeBuilder {
     private Ingredient input;
     private Ingredient stamp;
     private FluidIngredient fluid;
-    private Advancement.Builder advancement = Advancement.Builder.advancement();
+
     @javax.annotation.Nullable
     private String group;
     private final StampingRecipe.Serializer serializer;
@@ -63,7 +63,6 @@ public class StampingRecipeBuilder implements RecipeBuilder {
 
     @Override
     public RecipeBuilder unlockedBy(String key, CriterionTriggerInstance trigger) {
-        this.advancement.addCriterion(key, trigger);
         return this;
     }
 
@@ -80,8 +79,7 @@ public class StampingRecipeBuilder implements RecipeBuilder {
 
     @Override
     public void save(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
-        this.advancement.parent(ROOT_RECIPE_ADVANCEMENT).addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id)).rewards(AdvancementRewards.Builder.recipe(id)).requirements(RequirementsStrategy.OR);
-        consumer.accept(new Result(id, this.group == null ? "" : this.group, this.result, this.input, this.stamp, this.fluid, this.advancement, new ResourceLocation(id.getNamespace(), "recipes/" + this.result.getStack().getItem().getItemCategory().getRecipeFolderName() + "/" + id.getPath()), this.serializer));
+        consumer.accept(new Result(id, this.group == null ? "" : this.group, this.result, this.input, this.stamp, this.fluid, this.serializer));
     }
 
     public static class Result implements FinishedRecipe {
@@ -90,12 +88,10 @@ public class StampingRecipeBuilder implements RecipeBuilder {
         private final Ingredient input;
         private final Ingredient stamp;
         private final FluidIngredient fluid;
-        private final Advancement.Builder advancement;
-        private final ResourceLocation advancementId;
         private final String group;
         private final StampingRecipe.Serializer serializer;
 
-        public Result(ResourceLocation id, String group, ProcessingOutput result, Ingredient input, Ingredient stamp, FluidIngredient fluid, Advancement.Builder advancement, ResourceLocation advancementId, StampingRecipe.Serializer serializer) {
+        public Result(ResourceLocation id, String group, ProcessingOutput result, Ingredient input, Ingredient stamp, FluidIngredient fluid, StampingRecipe.Serializer serializer) {
             this.id = id;
             this.result = result;
             this.input = input;
@@ -103,8 +99,6 @@ public class StampingRecipeBuilder implements RecipeBuilder {
             this.fluid = fluid;
             this.group = group;
             this.serializer = serializer;
-            this.advancement = advancement;
-            this.advancementId = advancementId;
         }
 
         public StampingRecipe toRecipe() {
@@ -129,13 +123,13 @@ public class StampingRecipeBuilder implements RecipeBuilder {
         @Nullable
         @Override
         public JsonObject serializeAdvancement() {
-            return advancement.serializeToJson();
+            return null;
         }
 
         @Nullable
         @Override
         public ResourceLocation getAdvancementId() {
-            return advancementId;
+            return null;
         }
     }
 }

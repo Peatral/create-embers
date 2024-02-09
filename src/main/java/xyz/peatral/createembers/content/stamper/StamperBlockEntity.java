@@ -247,7 +247,7 @@ public class StamperBlockEntity extends SmartBlockEntity implements IHaveGoggleI
                             .withStyle(ChatFormatting.GRAY)));
             for (Recipe<?> recipe : recipes) {
                 tooltip.add(indent2.plainCopy()
-                        .append(Lang.translateDirect("gui.goggles.stamper.recipe", recipe.getResultItem().getHoverName())
+                        .append(Lang.translateDirect("gui.goggles.stamper.recipe", recipe.getResultItem(level.registryAccess()).getHoverName())
                                 .withStyle(ChatFormatting.GRAY)));
             }
         }

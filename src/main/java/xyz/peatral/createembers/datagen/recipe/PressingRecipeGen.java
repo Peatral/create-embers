@@ -5,8 +5,11 @@ import com.simibubi.create.AllTags;
 import com.simibubi.create.foundation.data.recipe.CreateRecipeProvider;
 import com.simibubi.create.foundation.data.recipe.ProcessingRecipeGen;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.recipes.FinishedRecipe;
 import xyz.peatral.createembers.CEItems;
 import xyz.peatral.createembers.CreateEmbers;
+
+import java.util.function.Consumer;
 
 public class PressingRecipeGen extends ProcessingRecipeGen {
     CreateRecipeProvider.GeneratedRecipe
@@ -29,12 +32,17 @@ public class PressingRecipeGen extends ProcessingRecipeGen {
             .output(CEItems.TIN_PLATE.get()))
     ;
 
-    public PressingRecipeGen(DataGenerator p_i48262_1_) {
-        super(p_i48262_1_);
+    public PressingRecipeGen(DataGenerator dataGenerator) {
+        super(dataGenerator.getPackOutput());
     }
 
     @Override
     protected AllRecipeTypes getRecipeType() {
         return AllRecipeTypes.PRESSING;
+    }
+
+    @Override
+    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+        all.forEach(c -> c.register(consumer));
     }
 }

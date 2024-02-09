@@ -78,6 +78,5 @@
   "item.createembers.stamp_plate": "Plate Stamp",
   "item.createembers.tin_ingot": "Tin Ingot",
   "item.createembers.tin_nugget": "Tin Nugget",
-  "item.createembers.tin_plate": "Tin Plate",
-  "itemGroup.createembers": "Create Embers"
+  "item.createembers.tin_plate": "Tin Plate"
 }

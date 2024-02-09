@@ -5,6 +5,7 @@ import com.simibubi.create.content.processing.recipe.ProcessingOutput;
 import com.simibubi.create.foundation.fluid.FluidIngredient;
 import com.simibubi.create.foundation.item.SmartInventory;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
@@ -131,7 +132,7 @@ public class StampingRecipe implements Recipe<SmartInventory> {
     }
 
     @Override
-    public ItemStack assemble(SmartInventory inv) {
+    public ItemStack assemble(SmartInventory p_44001_, RegistryAccess p_267165_) {
         return output.getStack();
     }
 
@@ -141,7 +142,7 @@ public class StampingRecipe implements Recipe<SmartInventory> {
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess p_267052_) {
         return output.getStack().copy();
     }
 

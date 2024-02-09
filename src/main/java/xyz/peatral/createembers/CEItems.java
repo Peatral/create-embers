@@ -8,7 +8,7 @@ import net.minecraft.world.item.Item;
 public class CEItems {
     static {
         CreateEmbers.registrate()
-                .creativeModeTab(() -> CreateEmbers.BASE_CREATIVE_TAB);
+                .setCreativeTab(CECreativeTabs.BASE_CREATIVE_TAB);
     }
 
     // ------------- Stamps -------------

@@ -6,9 +6,11 @@ import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -19,6 +21,8 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 import org.slf4j.Logger;
 import xyz.peatral.createembers.crafting.CERecipes;
 
@@ -29,8 +33,6 @@ public class CreateEmbers {
     public static final String VERSION = "0.0.1";
 
     public static final Logger LOGGER = LogUtils.getLogger();
-
-    public static final CreativeModeTab BASE_CREATIVE_TAB = new CreateEmbersItemGroup();
 
     private static final CreateRegistrate REGISTRATE = CreateRegistrate.create(ID);
     static {
@@ -45,6 +47,9 @@ public class CreateEmbers {
         IEventBus modEventBus = FMLJavaModLoadingContext.get()
                 .getModEventBus();
         IEventBus forgeEventBus = MinecraftForge.EVENT_BUS;
+
+
+        CECreativeTabs.register(modEventBus);
 
         REGISTRATE.registerEventListeners(modEventBus);
 

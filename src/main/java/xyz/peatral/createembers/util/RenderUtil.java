@@ -2,21 +2,22 @@ package xyz.peatral.createembers.util;
 
 import com.jozufozu.flywheel.util.transform.TransformStack;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector3f;
+import com.mojang.math.Axis;
 import com.simibubi.create.content.kinetics.belt.BeltHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.Random;
 
 public class RenderUtil {
-    public static void renderItem(PoseStack ms, MultiBufferSource buffer, int light, int overlay, ItemStack itemStack,
+    public static void renderItem(Level level, PoseStack ms, MultiBufferSource buffer, int light, int overlay, ItemStack itemStack,
                                   int angle, Random r, Vec3 itemPosition) {
         ItemRenderer itemRenderer = Minecraft.getInstance()
                 .getItemRenderer();
@@ -36,7 +37,7 @@ public class RenderUtil {
                 Vec3 vectorForOffset = itemPosition;
                 Vec3 diff = vectorForOffset.subtract(positionVec);
                 float yRot = (float) (Mth.atan2(diff.x, diff.z) + Math.PI);
-                ms.mulPose(Vector3f.YP.rotation(yRot));
+                ms.mulPose(Axis.YP.rotation(yRot));
             }
             ms.translate(0, 3 / 32d, -1 / 16f);
         }
@@ -49,7 +50,7 @@ public class RenderUtil {
             if (!blockItem && !renderUpright) {
                 msr.rotateX(90);
             }
-            itemRenderer.renderStatic(itemStack, ItemTransforms.TransformType.FIXED, light, overlay, ms, buffer, 0);
+            itemRenderer.renderStatic(itemStack, ItemDisplayContext.FIXED, light, overlay, ms, buffer, level, 0);
             ms.popPose();
 
             if (!renderUpright) {

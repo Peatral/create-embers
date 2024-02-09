@@ -9,12 +9,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
+import org.jetbrains.annotations.Nullable;
 import xyz.peatral.createembers.CEBlockEntityTypes;
 
 public class StamperBlock extends Block implements IBE<StamperBlockEntity> {
@@ -30,6 +32,12 @@ public class StamperBlock extends Block implements IBE<StamperBlockEntity> {
     @Override
     public BlockEntityType<? extends StamperBlockEntity> getBlockEntityType() {
         return CEBlockEntityTypes.STAMPER.get();
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return getBlockEntityType().create(pos, state);
     }
 
     @Override

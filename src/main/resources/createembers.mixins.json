@@ -3,7 +3,7 @@
   "minVersion": "0.8",
   "package": "xyz.peatral.createembers.mixin",
   "compatibilityLevel": "JAVA_8",
-  "refmap": "crreateembers.refmap.json",
+  "refmap": "createembers.refmap.json",
   "mixins": [
   ],
   "client": [

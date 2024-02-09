@@ -12,12 +12,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.IFluidHandler;
+import org.jetbrains.annotations.Nullable;
 import xyz.peatral.createembers.CEBlockEntityTypes;
 
 public class FluidVesselBlock extends Block implements IBE<FluidVesselBlockEntity> {
@@ -33,6 +35,12 @@ public class FluidVesselBlock extends Block implements IBE<FluidVesselBlockEntit
     @Override
     public BlockEntityType<? extends FluidVesselBlockEntity> getBlockEntityType() {
         return CEBlockEntityTypes.FLUID_VESSEL.get();
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        return getBlockEntityType().create(pos, state);
     }
 
     @Override

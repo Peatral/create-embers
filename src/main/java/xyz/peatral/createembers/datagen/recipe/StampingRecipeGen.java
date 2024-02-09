@@ -20,14 +20,13 @@ import java.util.function.Consumer;
 public class StampingRecipeGen extends RecipeProvider {
     protected final List<GeneratedRecipe> all = new ArrayList<>();
     public StampingRecipeGen(DataGenerator generator) {
-        super(generator);
+        super(generator.getPackOutput());
     }
 
     @FunctionalInterface
     public interface GeneratedRecipe {
         void register(Consumer<FinishedRecipe> consumer);
     }
-
 
     GeneratedRecipe MOLTEN_IRON_TO_INGOT = simpleBarStamping(Items.IRON_INGOT, "molten_iron");
     GeneratedRecipe MOLTEN_GOLD_TO_INGOT = simpleBarStamping(Items.GOLD_INGOT, "molten_gold");
@@ -73,7 +72,7 @@ public class StampingRecipeGen extends RecipeProvider {
     }
 
     @Override
-    protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
+    protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
         all.forEach(c -> c.register(consumer));
     }
 }

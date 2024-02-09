@@ -18,6 +18,10 @@ import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class CEFluids {
+    static {
+        CreateEmbers.registrate().setCreativeTab(CECreativeTabs.BASE_CREATIVE_TAB);
+    }
+
 
     public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_IRON = simpleFluid("molten_iron", "Molten Iron");
     public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_GOLD = simpleFluid("molten_gold", "Molten Gold");
