@@ -1,5 +1,6 @@
 package xyz.peatral.createembers;
 
+import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import it.unimi.dsi.fastutil.objects.ReferenceArrayList;
 import it.unimi.dsi.fastutil.objects.ReferenceLinkedOpenHashSet;
@@ -23,7 +24,7 @@ public class CECreativeTabs {
             .title(Component.translatable("itemGroup." + CreateEmbers.ID + ".main"))
             .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
             .icon(CEBlocks.STAMP_BASE::asStack)
-            .displayItems((parameters, output) -> new RegistrateDisplayItemsGenerator())
+            .displayItems(new RegistrateDisplayItemsGenerator())
             .build());
 
     public static void register(IEventBus modEventBus) {
@@ -35,7 +36,7 @@ public class CECreativeTabs {
         private List<Item> collectBlocks(RegistryObject<CreativeModeTab> tab, Predicate<Item> exclusionPredicate) {
             List<Item> items = new ReferenceArrayList<>();
             for (RegistryEntry<Block> entry : CreateEmbers.registrate().getAll(Registries.BLOCK)) {
-                if (!CreateEmbers.registrate().isInCreativeTab(entry, tab))
+                if (!CreateRegistrate.isInCreativeTab(entry, tab))
                     continue;
                 Item item = entry.get()
                         .asItem();
@@ -53,7 +54,7 @@ public class CECreativeTabs {
 
 
             for (RegistryEntry<Item> entry : CreateEmbers.registrate().getAll(Registries.ITEM)) {
-                if (!CreateEmbers.registrate().isInCreativeTab(entry, tab))
+                if (!CreateRegistrate.isInCreativeTab(entry, tab))
                     continue;
                 Item item = entry.get();
                 if (item instanceof BlockItem)
@@ -64,7 +65,7 @@ public class CECreativeTabs {
             return items;
         }
 
-        private static void outputAll(CreativeModeTab.Output output, List<Item> items) {
+        private static void acceptAll(CreativeModeTab.Output output, List<Item> items) {
             for (Item item : items) {
                 output.accept(item);
             }
@@ -77,7 +78,7 @@ public class CECreativeTabs {
             List<Item> items = new LinkedList<>();
             items.addAll(collectBlocks(BASE_CREATIVE_TAB, (item) -> false));
             items.addAll(collectItems(BASE_CREATIVE_TAB, (item) -> exclude.contains(item)));
-            outputAll(output, items);
+            acceptAll(output, items);
         }
     }
 }
