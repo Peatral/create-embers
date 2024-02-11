@@ -1,0 +1,92 @@
+{
+  "sources": [
+    {
+      "type": "single",
+      "resource": "createembers:fluid/molten_iron_flow"
+    },
+    {
+      "type": "single",
+      "resource": "createembers:fluid/molten_iron_still"
+    },
+    {
+      "type": "single",
+      "resource": "createembers:fluid/molten_gold_flow"
+    },
+    {
+      "type": "single",
+      "resource": "createembers:fluid/molten_gold_still"
+    },
+    {
+      "type": "single",
+      "resource": "createembers:fluid/molten_copper_flow"
+    },
+    {
+      "type": "single",
+      "resource": "createembers:fluid/molten_copper_still"
+    },
+    {
+      "type": "single",
+      "resource": "createembers:fluid/molten_aluminum_flow"
+    },
+    {
+      "type": "single",
+      "resource": "createembers:fluid/molten_aluminum_still"
+    },
+    {
+      "type": "single",
+      "resource": "createembers:fluid/molten_bronze_flow"
+    },
+    {
+      "type": "single",
+      "resource": "createembers:fluid/molten_bronze_still"
+    },
+    {
+      "type": "single",
+      "resource": "createembers:fluid/molten_dawnstone_flow"
+    },
+    {
+      "type": "single",
+      "resource": "createembers:fluid/molten_dawnstone_still"
+    },
+    {
+      "type": "single",
+      "resource": "createembers:fluid/molten_electrum_flow"
+    },
+    {
+      "type": "single",
+      "resource": "createembers:fluid/molten_electrum_still"
+    },
+    {
+      "type": "single",
+      "resource": "createembers:fluid/molten_lead_flow"
+    },
+    {
+      "type": "single",
+      "resource": "createembers:fluid/molten_lead_still"
+    },
+    {
+      "type": "single",
+      "resource": "createembers:fluid/molten_nickel_flow"
+    },
+    {
+      "type": "single",
+      "resource": "createembers:fluid/molten_nickel_still"
+    },
+    {
+      "type": "single",
+      "resource": "createembers:fluid/molten_silver_flow"
+    },
+    {
+      "type": "single",
+      "resource": "createembers:fluid/molten_silver_still"
+    },
+    {
+      "type": "single",
+      "resource": "createembers:fluid/molten_tin_flow"
+    },
+    {
+      "type": "single",
+      "resource": "createembers:fluid/molten_tin_still"
+    }
+  ]
+}
