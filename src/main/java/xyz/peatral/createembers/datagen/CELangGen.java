@@ -14,7 +14,14 @@ public class CELangGen {
         gogglesTooltip("stamper.running", "Running");
         gogglesTooltip("stamper.runningticks", "Running Ticks: %d");
 
+        gogglesTooltip("ember_container", "Ember Container Info:");
+
         gui("none", "None");
+
+        gogglesTooltip("boiler.steam_info", "Steam Generation:");
+
+        CreateEmbers.registrate().addRawLang(CreateEmbers.ID + ".generic.unit.embers", "emb");
+        CreateEmbers.registrate().addRawLang("itemGroup.createembers.main", "Create Embers");
     }
 
     public static void gogglesTooltip(String path, String enUs) {

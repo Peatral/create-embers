@@ -13,6 +13,11 @@
   "block.createembers.molten_tin": "Molten Tin",
   "block.createembers.stamp_base": "Stamp Base",
   "block.createembers.stamper": "Stamper",
+  "block.createembers.steam": "Steam",
+  "block.createembers.steam_valve": "Steam Valve",
+  "createembers.generic.unit.embers": "emb",
+  "createembers.gui.goggles.boiler.steam_info": "Steam Generation:",
+  "createembers.gui.goggles.ember_container": "Ember Container Info:",
   "createembers.gui.goggles.stamper": "Stamping Data:",
   "createembers.gui.goggles.stamper.fluid": "Stamp Base Fluid: %s",
   "createembers.gui.goggles.stamper.item": "Stamp Base Item: %s",
@@ -40,6 +45,7 @@
   "fluid.createembers.molten_nickel": "Molten Nickel",
   "fluid.createembers.molten_silver": "Molten Silver",
   "fluid.createembers.molten_tin": "Molten Tin",
+  "fluid.createembers.steam": "Steam",
   "item.createembers.aluminum_ingot": "Aluminum Ingot",
   "item.createembers.aluminum_nugget": "Aluminum Nugget",
   "item.createembers.aluminum_plate": "Aluminum Plate",
@@ -76,7 +82,9 @@
   "item.createembers.stamp_gear": "Gear Stamp",
   "item.createembers.stamp_ingot": "Bar Stamp",
   "item.createembers.stamp_plate": "Plate Stamp",
+  "item.createembers.steam_bucket": "Steam Bucket",
   "item.createembers.tin_ingot": "Tin Ingot",
   "item.createembers.tin_nugget": "Tin Nugget",
-  "item.createembers.tin_plate": "Tin Plate"
+  "item.createembers.tin_plate": "Tin Plate",
+  "itemGroup.createembers.main": "Create Embers"
 }

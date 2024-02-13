@@ -1,9 +1,6 @@
 {
-  "parent": "forge:item/bucket",
+  "parent": "forge:item/bucket_drip",
+  "flip_gas": false,
   "fluid": "createembers:molten_copper",
-  "loader": "forge:fluid_container",
-  "textures": {
-    "base": "minecraft:item/bucket",
-    "fluid": "createembers:item/drip_bucket"
-  }
+  "loader": "forge:fluid_container"
 }

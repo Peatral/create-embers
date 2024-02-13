@@ -23,20 +23,26 @@ public class CEFluids {
     }
 
 
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_IRON = simpleFluid("molten_iron", "Molten Iron");
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_GOLD = simpleFluid("molten_gold", "Molten Gold");
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_COPPER = simpleFluid("molten_copper", "Molten Copper");
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_ALUMINUM = simpleFluid("molten_aluminum", "Molten Aluminum");
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_BRONZE = simpleFluid("molten_bronze", "Molten Bronze");
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_DAWNSTONE = simpleFluid("molten_dawnstone", "Molten Dawnstone");
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_ELECTRUM = simpleFluid("molten_electrum", "Molten Electrum");
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_LEAD = simpleFluid("molten_lead", "Molten Lead");
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_NICKEL = simpleFluid("molten_nickel", "Molten Nickel");
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_SILVER = simpleFluid("molten_silver", "Molten Silver");
-    public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_TIN = simpleFluid("molten_tin", "Molten Tin");
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_IRON = simpleFluid("molten_iron", "Molten Iron").register();
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_GOLD = simpleFluid("molten_gold", "Molten Gold").register();
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_COPPER = simpleFluid("molten_copper", "Molten Copper").register();
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_ALUMINUM = simpleFluid("molten_aluminum", "Molten Aluminum").register();
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_BRONZE = simpleFluid("molten_bronze", "Molten Bronze").register();
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_DAWNSTONE = simpleFluid("molten_dawnstone", "Molten Dawnstone").register();
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_ELECTRUM = simpleFluid("molten_electrum", "Molten Electrum").register();
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_LEAD = simpleFluid("molten_lead", "Molten Lead").register();
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_NICKEL = simpleFluid("molten_nickel", "Molten Nickel").register();
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_SILVER = simpleFluid("molten_silver", "Molten Silver").register();
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> MOLTEN_TIN = simpleFluid("molten_tin", "Molten Tin").register();
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> STEAM = simpleFluid("steam", "Steam", true)
+            .properties(b -> b.density(-1)).register();
 
 
-    public static FluidEntry<ForgeFlowingFluid.Flowing> simpleFluid(String id, String name) {
+    public static FluidBuilder<ForgeFlowingFluid.Flowing, CreateRegistrate> simpleFluid(String id, String name) {
+        return simpleFluid(id, name, false);
+    }
+
+    public static FluidBuilder<ForgeFlowingFluid.Flowing, CreateRegistrate> simpleFluid(String id, String name, boolean flipGas) {
         return standardFluid(id, NoColorFluidAttributes::new)
                 .lang(name)
                 .properties(b -> b.viscosity(6000)
@@ -52,8 +58,7 @@ public class CEFluids {
                 .bucket()
                 .defaultModel()
                 .tag(AllTags.forgeItemTag("buckets/" + id))
-                .transform(bucketModel(id))
-                .register();
+                .transform(bucketModel(id, flipGas));
     }
 
     public static FluidBuilder<ForgeFlowingFluid.Flowing, CreateRegistrate> standardFluid(String name,
@@ -62,14 +67,16 @@ public class CEFluids {
                 typeFactory);
     }
 
-    public static <I extends BucketItem, P> NonNullFunction<ItemBuilder<I, P>, P> bucketModel(String fluid) {
+    public static <I extends BucketItem, P> NonNullFunction<ItemBuilder<I, P>, P> bucketModel(String fluid, boolean flipGas) {
         return b -> b.model((ctx, prov) -> prov.getBuilder(prov.name(() -> ctx.getEntry().asItem()))
-                        .parent(new ModelFile.UncheckedModelFile("forge:item/bucket"))
+                        .parent(new ModelFile.UncheckedModelFile("forge:item/bucket_drip"))
                         .customLoader(DynamicFluidContainerModelBuilder::begin)
                         .fluid(ForgeRegistries.FLUIDS.getValue(CreateEmbers.asResource(fluid)))
+                        .flipGas(flipGas)
                         .end()
-                        .texture("base", "minecraft:item/bucket")
-                        .texture("fluid", CreateEmbers.asResource("item/drip_bucket")))
+                        //.texture("base", "minecraft:item/bucket")
+                        //.texture("fluid", CreateEmbers.asResource("item/drip_bucket"))
+                )
                 .build();
     }
 

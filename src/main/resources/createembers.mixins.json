@@ -5,6 +5,11 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "createembers.refmap.json",
   "mixins": [
+    "MixinBoilerData",
+    "MixinBoilerDataFluidHandler",
+    "MixinCopperCell",
+    "MixinFluidVessel",
+    "MixinWrench"
   ],
   "client": [
   ],

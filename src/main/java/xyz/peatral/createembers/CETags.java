@@ -3,10 +3,14 @@ package xyz.peatral.createembers;
 import com.simibubi.create.AllTags;
 import com.simibubi.create.foundation.utility.Lang;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidType;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import static xyz.peatral.createembers.CETags.NameSpace.FORGE;
@@ -82,7 +86,50 @@ public class CETags {
         }
     }
 
+    public enum CEFluidTags {
+        ;
+
+        public final TagKey<Fluid> tag;
+        public final boolean alwaysDatagen;
+
+        CEFluidTags() {
+            this(MOD);
+        }
+
+        CEFluidTags(NameSpace namespace) {
+            this(namespace, namespace.optionalDefault, namespace.alwaysDatagenDefault);
+        }
+
+        CEFluidTags(NameSpace namespace, String path) {
+            this(namespace, path, namespace.optionalDefault, namespace.alwaysDatagenDefault);
+        }
+
+        CEFluidTags(NameSpace namespace, boolean optional, boolean alwaysDatagen) {
+            this(namespace, null, optional, alwaysDatagen);
+        }
+
+        CEFluidTags(NameSpace namespace, String path, boolean optional, boolean alwaysDatagen) {
+            ResourceLocation id = new ResourceLocation(namespace.id, path == null ? Lang.asId(name()) : path);
+            if (optional) {
+                tag = AllTags.optionalTag(ForgeRegistries.FLUIDS, id);
+            } else {
+                tag = FluidTags.create(id);
+            }
+            this.alwaysDatagen = alwaysDatagen;
+        }
+
+        @SuppressWarnings("deprecation")
+        public boolean matches(Fluid fluid) {
+            return fluid.builtInRegistryHolder()
+                    .is(tag);
+        }
+
+        private static void init() {
+        }
+    }
+
     public static void init() {
         CEItemTags.init();
+        CEFluidTags.init();
     }
 }

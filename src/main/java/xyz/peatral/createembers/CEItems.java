@@ -1,8 +1,12 @@
 package xyz.peatral.createembers;
 
+import com.rekindled.embers.RegistryManager;
+import com.simibubi.create.AllItems;
 import com.simibubi.create.AllTags;
+import com.simibubi.create.content.equipment.goggles.GogglesItem;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 
 public class CEItems {
@@ -50,6 +54,10 @@ public class CEItems {
     public static final ItemEntry<Item> NICKEL_NUGGET = taggedIngredient("nickel_nugget", AllTags.forgeItemTag("nuggets/nickel"), CETags.CEItemTags.NUGGETS.tag);
     public static final ItemEntry<Item> SILVER_NUGGET = taggedIngredient("silver_nugget", AllTags.forgeItemTag("nuggets/silver"), CETags.CEItemTags.NUGGETS.tag);
     public static final ItemEntry<Item> TIN_NUGGET = taggedIngredient("tin_nugget", AllTags.forgeItemTag("nuggets/tin"), CETags.CEItemTags.NUGGETS.tag);
+
+    static {
+       GogglesItem.addIsWearingPredicate(player -> RegistryManager.ASHEN_GOGGLES.get().equals(player.getItemBySlot(EquipmentSlot.HEAD).getItem()));
+    }
 
     private static ItemEntry<Item> ingredient(String name) {
         return CreateEmbers.registrate().item(name, Item::new)

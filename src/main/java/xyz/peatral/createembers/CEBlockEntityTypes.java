@@ -7,6 +7,8 @@ import xyz.peatral.createembers.content.stamp_base.StampBaseBlockEntity;
 import xyz.peatral.createembers.content.stamp_base.StampBaseRenderer;
 import xyz.peatral.createembers.content.stamper.StamperBlockEntity;
 import xyz.peatral.createembers.content.stamper.StamperRenderer;
+import xyz.peatral.createembers.content.steam_valve.SteamValveBlockEntity;
+import xyz.peatral.createembers.content.steam_valve.SteamValveRenderer;
 
 public class CEBlockEntityTypes {
     public static final BlockEntityEntry<StampBaseBlockEntity> STAMP_BASE = CreateEmbers.registrate()
@@ -25,6 +27,12 @@ public class CEBlockEntityTypes {
             .blockEntity("fluid_vessel", FluidVesselBlockEntity::new)
             .validBlocks(CEBlocks.FLUID_VESSEL)
             .renderer(() -> FluidVesselRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<SteamValveBlockEntity> STEAM_VALVE = CreateEmbers.registrate()
+            .blockEntity("steam_valve", SteamValveBlockEntity::new)
+            .validBlocks(CEBlocks.STEAM_VALVE)
+            .renderer(() -> SteamValveRenderer::new)
             .register();
 
     // Load this class

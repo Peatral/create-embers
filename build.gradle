@@ -159,6 +159,9 @@ repositories {
         name = "architectury maven"
         url = "https://maven.architectury.dev/"
     }
+    maven {
+        url = "https://api.modrinth.com/maven"
+    }
 }
 
 dependencies {
@@ -196,6 +199,8 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge-api:${jei_version}")
     // at runtime, use the full JEI jar for Forge
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
+
+    implementation fg.deobf("maven.modrinth:embers:1.20.1-1.1.1")
 
     // in libs
     //runtimeOnly(fg.deobf("blank:modid-${mc_version}:${version}"))

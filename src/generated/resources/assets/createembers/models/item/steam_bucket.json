@@ -1,6 +1,6 @@
 {
   "parent": "forge:item/bucket_drip",
-  "flip_gas": false,
-  "fluid": "createembers:molten_lead",
+  "flip_gas": true,
+  "fluid": "createembers:steam",
   "loader": "forge:fluid_container"
 }

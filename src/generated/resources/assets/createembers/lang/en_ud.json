@@ -13,6 +13,11 @@
   "block.createembers.molten_tin": "uı⟘ uǝʇןoW",
   "block.createembers.stamp_base": "ǝsɐᗺ dɯɐʇS",
   "block.createembers.stamper": "ɹǝdɯɐʇS",
+  "block.createembers.steam": "ɯɐǝʇS",
+  "block.createembers.steam_valve": "ǝʌןɐΛ ɯɐǝʇS",
+  "createembers.generic.unit.embers": "qɯǝ",
+  "createembers.gui.goggles.boiler.steam_info": ":uoıʇɐɹǝuǝ⅁ ɯɐǝʇS",
+  "createembers.gui.goggles.ember_container": ":oɟuI ɹǝuıɐʇuoƆ ɹǝqɯƎ",
   "createembers.gui.goggles.stamper": ":ɐʇɐᗡ buıdɯɐʇS",
   "createembers.gui.goggles.stamper.fluid": "%s :pınןℲ ǝsɐᗺ dɯɐʇS",
   "createembers.gui.goggles.stamper.item": "%s :ɯǝʇI ǝsɐᗺ dɯɐʇS",
@@ -40,6 +45,7 @@
   "fluid.createembers.molten_nickel": "ןǝʞɔıN uǝʇןoW",
   "fluid.createembers.molten_silver": "ɹǝʌןıS uǝʇןoW",
   "fluid.createembers.molten_tin": "uı⟘ uǝʇןoW",
+  "fluid.createembers.steam": "ɯɐǝʇS",
   "item.createembers.aluminum_ingot": "ʇobuI ɯnuıɯnןⱯ",
   "item.createembers.aluminum_nugget": "ʇǝbbnN ɯnuıɯnןⱯ",
   "item.createembers.aluminum_plate": "ǝʇɐןԀ ɯnuıɯnןⱯ",
@@ -76,7 +82,9 @@
   "item.createembers.stamp_gear": "dɯɐʇS ɹɐǝ⅁",
   "item.createembers.stamp_ingot": "dɯɐʇS ɹɐᗺ",
   "item.createembers.stamp_plate": "dɯɐʇS ǝʇɐןԀ",
+  "item.createembers.steam_bucket": "ʇǝʞɔnᗺ ɯɐǝʇS",
   "item.createembers.tin_ingot": "ʇobuI uı⟘",
   "item.createembers.tin_nugget": "ʇǝbbnN uı⟘",
-  "item.createembers.tin_plate": "ǝʇɐןԀ uı⟘"
+  "item.createembers.tin_plate": "ǝʇɐןԀ uı⟘",
+  "itemGroup.createembers.main": "sɹǝqɯƎ ǝʇɐǝɹƆ"
 }

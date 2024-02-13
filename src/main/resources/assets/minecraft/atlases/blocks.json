@@ -87,6 +87,14 @@
     {
       "type": "single",
       "resource": "createembers:fluid/molten_tin_still"
+    },
+    {
+      "type": "single",
+      "resource": "createembers:fluid/steam_still"
+    },
+    {
+      "type": "single",
+      "resource": "createembers:fluid/steam_flow"
     }
   ]
 }

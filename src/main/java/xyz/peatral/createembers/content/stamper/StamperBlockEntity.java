@@ -24,7 +24,7 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.items.IItemHandlerModifiable;
-import xyz.peatral.createembers.Lang;
+import xyz.peatral.createembers.CELang;
 import xyz.peatral.createembers.content.stamp_base.StampBaseBlockEntity;
 import xyz.peatral.createembers.crafting.StampingRecipe;
 
@@ -220,44 +220,44 @@ public class StamperBlockEntity extends SmartBlockEntity implements IHaveGoggleI
         StampBaseBlockEntity stampBase = stampBaseOptional.get();
 
         tooltip.add(indent.plainCopy()
-                .append(Lang.translateDirect("gui.goggles.stamper")));
+                .append(CELang.translateDirect("gui.goggles.stamper")));
 
         ItemStack stamperStack = inventory.getItem(0);
         tooltip.add(indent2.plainCopy()
-                .append(Lang.translateDirect("gui.goggles.stamper.stamp",
-                        stamperStack.isEmpty() ? Lang.translateDirect("gui.none") : stamperStack.getHoverName()
+                .append(CELang.translateDirect("gui.goggles.stamper.stamp",
+                        stamperStack.isEmpty() ? CELang.translateDirect("gui.none") : stamperStack.getHoverName()
                 ).withStyle(stamperStack.isEmpty() ? ChatFormatting.DARK_GRAY : ChatFormatting.GRAY)));
 
         ItemStack stampBaseStack = stampBase.inputInventory.getItem(0);
         tooltip.add(indent2.plainCopy()
-                .append(Lang.translateDirect("gui.goggles.stamper.item",
-                        stampBaseStack.isEmpty() ? Lang.translateDirect("gui.none") : stampBaseStack.getHoverName()
+                .append(CELang.translateDirect("gui.goggles.stamper.item",
+                        stampBaseStack.isEmpty() ? CELang.translateDirect("gui.none") : stampBaseStack.getHoverName()
                 ).withStyle(stampBaseStack.isEmpty() ? ChatFormatting.DARK_GRAY : ChatFormatting.GRAY)));
 
         FluidStack stampBaseFluid = stampBase.tank.getPrimaryTank().getRenderedFluid();
         tooltip.add(indent2.plainCopy()
-                .append(Lang.translateDirect("gui.goggles.stamper.fluid",
-                        stampBaseFluid.isEmpty() ? Lang.translateDirect("gui.none") : stampBaseFluid.getDisplayName()
+                .append(CELang.translateDirect("gui.goggles.stamper.fluid",
+                        stampBaseFluid.isEmpty() ? CELang.translateDirect("gui.none") : stampBaseFluid.getDisplayName()
                 ).withStyle(stampBaseFluid.isEmpty() ? ChatFormatting.DARK_GRAY : ChatFormatting.GRAY)));
 
         List<Recipe<?>> recipes = getMatchingRecipes();
         if (!recipes.isEmpty()) {
             tooltip.add(indent2.plainCopy()
-                    .append(Lang.translateDirect("gui.goggles.stamper.recipes")
+                    .append(CELang.translateDirect("gui.goggles.stamper.recipes")
                             .withStyle(ChatFormatting.GRAY)));
             for (Recipe<?> recipe : recipes) {
                 tooltip.add(indent2.plainCopy()
-                        .append(Lang.translateDirect("gui.goggles.stamper.recipe", recipe.getResultItem(level.registryAccess()).getHoverName())
+                        .append(CELang.translateDirect("gui.goggles.stamper.recipe", recipe.getResultItem(level.registryAccess()).getHoverName())
                                 .withStyle(ChatFormatting.GRAY)));
             }
         }
 
         if (running) {
             tooltip.add(indent2.plainCopy()
-                    .append(Lang.translateDirect("gui.goggles.stamper.running"
+                    .append(CELang.translateDirect("gui.goggles.stamper.running"
                     ).withStyle(ChatFormatting.GRAY)));
             tooltip.add(indent2.plainCopy()
-                    .append(Lang.translateDirect("gui.goggles.stamper.runningticks",
+                    .append(CELang.translateDirect("gui.goggles.stamper.runningticks",
                             runningTicks
                     ).withStyle(ChatFormatting.GRAY)));
         }
