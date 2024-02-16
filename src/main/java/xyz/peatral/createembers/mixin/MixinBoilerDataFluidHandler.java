@@ -32,25 +32,21 @@ public abstract class MixinBoilerDataFluidHandler implements IFluidHandler, IBoi
 
     @Inject(method = "getTankCapacity", at = @At("RETURN"), cancellable = true, remap = false)
     public void getTankCapacity(int tank, CallbackInfoReturnable<Integer> cir) {
-        float fillFactor = (float) create_embers$capacity / create_embers$getFluidAmount();
-        int tank0 = (int) (create_embers$getTank(0).getFluidAmount() * fillFactor);
-        if (tank == 0) {
-            cir.setReturnValue(tank0);
-        } else if (tank == 1) {
-            cir.setReturnValue(create_embers$capacity - tank0);
+        if (0 <= tank && tank < 2) {
+            cir.setReturnValue(create_embers$getTank(tank).getCapacity());
         }
     }
 
     @Inject(method = "getFluidInTank", at = @At("RETURN"), cancellable = true, remap = false)
     public void getFluidInTank(int tank, CallbackInfoReturnable<FluidStack> cir) {
-        if (tank >= 0 && tank < 2) {
+        if (0 <= tank && tank < 2) {
             cir.setReturnValue(create_embers$getTank(tank).getFluid());
         }
     }
 
     @Inject(method = "isFluidValid", at = @At("RETURN"), cancellable = true, remap = false)
     public void isFluidValid(int tank, FluidStack stack, CallbackInfoReturnable<Boolean> cir) {
-        if (tank >= 0 && tank < 2) {
+        if (0 <= tank && tank < 2) {
             cir.setReturnValue(create_embers$getTank(tank).isFluidValid(stack));
         }
     }

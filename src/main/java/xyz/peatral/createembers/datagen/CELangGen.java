@@ -18,7 +18,13 @@ public class CELangGen {
 
         gui("none", "None");
 
-        gogglesTooltip("boiler.steam_info", "Steam Generation:");
+        gogglesTooltip("boiler.steam_info", "Modified Boiler Stats:");
+        gogglesTooltip("boiler.pressure", "%1$s - boiler pressure");
+        gogglesTooltip("boiler.temperature", "%1$s - boiler temperature");
+        gogglesTooltip("boiler.boiling_point", "%1$s - boiling point");
+
+        CreateEmbers.registrate().addRawLang(CreateEmbers.ID + ".generic.unit.pressure", "bar");
+        CreateEmbers.registrate().addRawLang(CreateEmbers.ID + ".generic.unit.temperature", "°C");
 
         CreateEmbers.registrate().addRawLang(CreateEmbers.ID + ".generic.unit.embers", "emb");
         CreateEmbers.registrate().addRawLang("itemGroup.createembers.main", "Create Embers");
