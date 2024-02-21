@@ -20,8 +20,12 @@ public class CELangGen {
 
         gogglesTooltip("boiler.steam_info", "Modified Boiler Stats:");
         gogglesTooltip("boiler.pressure", "%1$s - boiler pressure");
-        gogglesTooltip("boiler.temperature", "%1$s - boiler temperature");
+        gogglesTooltip("boiler.water_temperature", "%1$s - water temperature");
+        gogglesTooltip("boiler.steam_temperature", "%1$s - steam temperature");
+        gogglesTooltip("boiler.boiler_temperature", "%1$s - boiler temperature");
         gogglesTooltip("boiler.boiling_point", "%1$s - boiling point");
+        gogglesTooltip("boiler.evaporation", "Evaporation");
+        gogglesTooltip("boiler.condensation", "Condensation");
 
         CreateEmbers.registrate().addRawLang(CreateEmbers.ID + ".generic.unit.pressure", "bar");
         CreateEmbers.registrate().addRawLang(CreateEmbers.ID + ".generic.unit.temperature", "°C");
